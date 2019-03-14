@@ -3,7 +3,7 @@
 gp() {
 	branch=$(gp_current_branch)
 	echo "Pushing to branch : $branch"
-#	git push origin $branch
+	git push origin $branch
 }
 
 gp_current_branch() {

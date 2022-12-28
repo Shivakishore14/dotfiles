@@ -1,0 +1,4 @@
+
+isMac() {
+    return "$(uname)" == "Darwin"
+}

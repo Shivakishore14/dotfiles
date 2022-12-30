@@ -16,11 +16,13 @@ install_nvim
 install_fzf
 
 
-rm -rf ~/.config/nvim # TODO: keep a copy before rm or just move
 mkdir -p ~/.config
 
 # Setup neovim
-cp -r $PROJECT_PATH/config/nvim ~/.config
+if ! test -d ~/.config/nvim
+then
+    ln -s $PROJECT_PATH/config/nvim ~/.config/nvim
+fi
 
 ## install packer
 if ! test -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -35,7 +37,10 @@ then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-cp -r $PROJECT_PATH/config/zsh ~/.config
+if ! test -d ~/.config/nvim
+then
+    ln -s $PROJECT_PATH/config/zsh ~/.config/zsh
+fi
 
 if ! grep -Fxq "source ~/.config/zsh/config.zsh" ~/.zshrc
 then
@@ -45,4 +50,14 @@ fi
 if ! test -d ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 then
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
+
+# setup alacritty
+# .config/alacritty/alacritty.yml
+
+cp -r $PROJECT_PATH/config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+
+if ! test -L ~/.tmux.conf
+then
+    ln -s $PROJECT_PATH/config/tmux/tmux.conf ~/.tmux.conf
 fi

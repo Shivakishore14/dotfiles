@@ -123,40 +123,40 @@ font:
     #style: Regular
 
   # Bold font face
-  #bold:
+  bold:
     # Font family
     #
     # If the bold family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: HacK Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    style: Bold
 
   # Italic font face
-  #italic:
+  italic:
     # Font family
     #
     # If the italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: HacK Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    style: Italic
 
   # Bold italic font face
-  #bold_italic:
+  bold_italic:
     # Font family
     #
     # If the bold italic family is not specified, it will fall back to the
     # value specified for the normal font.
-    #family: monospace
+    family: HacK Nerd Font
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold Italic
+    style: Bold Italic
 
   # Point size
-  size: 11.0
+  size: 12.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -433,10 +433,12 @@ font:
 #   - (macOS) /bin/bash --login
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
-#shell:
-#  program: /bin/bash
-#  args:
-#    - --login
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "/opt/homebrew/bin/tmux"
 
 # Startup directory
 #
@@ -856,24 +858,24 @@ font:
   #- { key: F,              mods: Command, mode: ~Search,     action: SearchForward         }
   #- { key: B,              mods: Command, mode: ~Search,     action: SearchBackward        }
 
-#debug:
-  # Display the time it takes to redraw each frame.
-  #render_timer: false
+# debug:
+#   # Display the time it takes to redraw each frame.
+#   render_timer: false
 
-  # Keep the log file after quitting Alacritty.
-  #persistent_logging: false
+#   # Keep the log file after quitting Alacritty.
+#   persistent_logging: true
 
-  # Log level
-  #
-  # Values for `log_level`:
-  #   - Off
-  #   - Error
-  #   - Warn
-  #   - Info
-  #   - Debug
-  #   - Trace
-  #log_level: Warn
+#   # Log level
+  
+#   # Values for `log_level`:
+#   #   - Off
+#   #   - Error
+#   #   - Warn
+#   #   - Info
+#   #   - Debug
+#   #   - Trace
+#   log_level: Warn
 
-  # Print all received window events.
-  #print_events: false
+#   # Print all received window events.
+#   print_events: false
 

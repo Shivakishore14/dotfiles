@@ -14,3 +14,5 @@ vim.o.mouse = "a"
 require('config.tree-sitter')
 require('config.lsp')
 require('config.nvim-tree')
+
+vim.cmd("colorscheme nightfox")

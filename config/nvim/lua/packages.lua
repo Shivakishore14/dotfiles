@@ -15,4 +15,5 @@ require('packer').startup(function()
     },
   }
   use 'kdheepak/lazygit.nvim'
+  use 'EdenEast/nightfox.nvim'
 end)

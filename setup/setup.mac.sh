@@ -13,3 +13,17 @@ install_fzf() {
         $(brew --prefix)/opt/fzf/install --all
     fi
 }
+
+install_hack_nerd_font() {
+   if ! brew list | grep font-hack-nerd-font -q
+   then
+       brew tap homebrew/cask-fonts && brew install --cask font-hack-nerd-font
+   fi
+}
+
+install_tmux() {
+   if ! command -v tmux &> /dev/null
+   then
+      NONINTERACTIVE=1 brew install tmux
+   fi
+}

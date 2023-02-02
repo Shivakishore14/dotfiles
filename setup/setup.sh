@@ -14,9 +14,10 @@ fi
 # install softwares
 install_nvim
 install_fzf
+install_hack_nerd_font
+install_tmux
 
-
-mkdir -p ~/.config
+mkdir -p ~/.config/alacritty/
 
 # Setup neovim
 if ! test -d ~/.config/nvim
@@ -30,6 +31,8 @@ then
     git clone --depth 1 https://github.com/wbthomason/packer.nvim\
     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 fi
+## install all nvim packar deps
+nvim --headless +PackerSync +q
 
 # Setup zsh
 if test -z ${ZSH+x}
@@ -37,7 +40,7 @@ then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
 
-if ! test -d ~/.config/nvim
+if ! test -d ~/.config/zsh
 then
     ln -s $PROJECT_PATH/config/zsh ~/.config/zsh
 fi

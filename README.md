@@ -5,22 +5,17 @@ This repo has the configurations / scripts that I personally use.
 
 please feel free to try them out and give suggestions.
 
+## Dependencies
 
-# vim
+### Mac
 
-### plugins used
+#### Required
 
-* CtrlP
+* brew
+* tmux
+* Hack Nerd Font
 
 
-# clip-copy script
+#### Optional
 
-To add to i3 config
-
-```bash
-bindsym $mod+c exec "bash ~/github/dotfiles/scripts/clip-copy.sh"
-```
-
-### deps
-
-* xclip [to copy contents to clip board]
+* alacritty

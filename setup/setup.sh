@@ -19,6 +19,18 @@ install_tmux
 
 mkdir -p ~/.config/alacritty/
 
+# Install node
+if ! test -d ~/.nvm
+then
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+fi
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+if ! command -v node &> /dev/null
+then
+    nvm install node
+fi
+
 # Setup neovim
 if ! test -d ~/.config/nvim
 then
@@ -33,6 +45,8 @@ then
 fi
 ## install all nvim packar deps
 nvim --headless +PackerSync +q
+npm install -g pyright
+
 
 # Setup zsh
 if test -z ${ZSH+x}
@@ -64,3 +78,4 @@ if ! test -L ~/.tmux.conf
 then
     ln -s $PROJECT_PATH/config/tmux/tmux.conf ~/.tmux.conf
 fi
+

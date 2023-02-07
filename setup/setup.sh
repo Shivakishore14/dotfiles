@@ -1,5 +1,18 @@
 PROJECT_PATH=$HOME/github/dotfiles
 
+if ! test "$1" = "--local"
+then
+  PROJECT_PATH=$HOME/.config/dotfiles
+  if test -d $PROJECT_PATH
+  then
+    pushd $PROJECT_PATH
+    git pull origin master
+    popd
+  else
+    git clone https://github.com/shivakishore14/dotfiles $PROJECT_PATH
+  fi
+fi
+
 source $PROJECT_PATH/setup/util.sh
 if test isMac
 then

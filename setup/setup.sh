@@ -17,11 +17,10 @@ source $PROJECT_PATH/setup/util.sh
 if test isMac
 then
     source $PROJECT_PATH/setup/setup.mac.sh
+elif test isLinux
+then
+    source $PROJECT_PATH/setup/setup.linux.sh
 fi
-
-
-# TODO: clone project locally
-
 
 
 # install softwares

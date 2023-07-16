@@ -1,7 +1,8 @@
 install_nvim() {
   if ! command -v nvim &> /dev/null
   then
-    yum -y install neovim
+    sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    sudo yum install -y neovim python3-neovim
   fi
 }
 
@@ -21,6 +22,6 @@ install_hack_nerd_font() {
 install_tmux() {
   if ! command -v tmux &> /dev/null
   then
-    yum -y install tmux
+    sudo yum -y install tmux
   fi
 }

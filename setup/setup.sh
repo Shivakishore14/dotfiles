@@ -56,8 +56,9 @@ then
     ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 fi
 ## install all nvim packar deps
-nvim --headless +PackerSync +q
 npm install -g pyright
+npm install -g typescript-language-server
+nvim --headless +PackerSync +q
 
 
 # Setup zsh

@@ -9,6 +9,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
+
   local opts = {noremap = true, silent = true}
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -29,14 +30,17 @@ local on_attach = function(client, bufnr)
 end
 
 require'lspconfig'.pyright.setup{
+  capabilities = capabilities,
   on_attach = on_attach,
   flags = lsp_flags,
 }
 require'lspconfig'.tsserver.setup{
+  capabilities = capabilities,
   on_attach = on_attach,
   flags = lsp_flags,
 }
 require'lspconfig'.gopls.setup{
+  capabilities = capabilities,
   on_attach = on_attach,
   flags = lsp_flags,
 }

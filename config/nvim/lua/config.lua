@@ -8,6 +8,7 @@ vim.o.signcolumn = "number"
 
 vim.g.mapleader = ";"
 vim.o.mouse = "a"
+vim.opt.clipboard = "unnamed"
 
 
 

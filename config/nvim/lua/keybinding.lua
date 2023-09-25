@@ -10,5 +10,6 @@ keymap('n', '<c-k>', '<c-w>k', keymap_opts)
 keymap('n', '<c-l>', '<c-w>l', keymap_opts)
 keymap('n', '<c-n>', ':NvimTreeToggle<CR>', keymap_opts)
 
-keymap('n', '<leader>ff', ':Telescope find_files<cr>', keymap_opts)
+keymap('n', '<leader>sf', ':Telescope find_files<cr>', keymap_opts)
+keymap('n', '<leader>sg', ':Telescope live_grep<cr>', keymap_opts)
 keymap('n', '<leader>gg', ':LazyGit<cr>', keymap_opts)

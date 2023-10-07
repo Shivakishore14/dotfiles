@@ -27,3 +27,7 @@ install_tmux() {
       NONINTERACTIVE=1 brew install tmux
    fi
 }
+
+install_lazy_git() {
+  NONINTERACTIVE=1 brew install lazygit
+}

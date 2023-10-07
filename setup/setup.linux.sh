@@ -25,3 +25,7 @@ install_tmux() {
     sudo yum -y install tmux
   fi
 }
+
+install_lazy_git() {
+  echo "Install lazy git manually"
+}

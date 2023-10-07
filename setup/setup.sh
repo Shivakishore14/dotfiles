@@ -28,6 +28,7 @@ install_nvim
 install_fzf
 install_hack_nerd_font
 install_tmux
+install_lazy_git
 
 mkdir -p ~/.config/alacritty/
 

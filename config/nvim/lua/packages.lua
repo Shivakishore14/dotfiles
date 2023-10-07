@@ -18,6 +18,9 @@ require('packer').startup(function()
   use 'EdenEast/nightfox.nvim'
   use 'onsails/lspkind.nvim'
 
+  -- comment
+  use 'numToStr/Comment.nvim'
+
   -- Autocompletion
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'

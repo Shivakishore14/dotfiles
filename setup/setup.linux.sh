@@ -1,3 +1,4 @@
+# uses yum, extend to other managers
 install_nvim() {
   if ! command -v nvim &> /dev/null
   then

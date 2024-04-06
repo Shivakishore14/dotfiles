@@ -18,6 +18,8 @@ require('packer').startup(function()
   use 'EdenEast/nightfox.nvim'
   use 'onsails/lspkind.nvim'
 
+  use 'williamboman/mason.nvim'
+
   -- comment
   use 'numToStr/Comment.nvim'
 
@@ -32,4 +34,14 @@ require('packer').startup(function()
   use 'saadparwaiz1/cmp_luasnip'
   -- Autocompletion end
 
+  -- Formatter
+  -- use('nvimtools/none-ls.nvim')
+  -- use('MunifTanjim/prettier.nvim')
+  use('mfussenegger/nvim-lint')
+  use('stevearc/conform.nvim')
+  -- Formatter end
+
+  -- code folding
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+  -- end
 end)

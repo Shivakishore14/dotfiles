@@ -6,6 +6,7 @@ local lsp_flags = {
 
 local lspkind = require'lspkind'
 local cmp = require'cmp'
+require("nvim-lsp-installer").setup {}
 
 cmp.setup {
   mapping = cmp.mapping.preset.insert({
@@ -88,4 +89,10 @@ require'lspconfig'.gopls.setup{
   on_attach = on_attach,
   flags = lsp_flags,
 }
+require'lspconfig'.tailwindcss.setup{
+  capabilities = capabilities,
+  on_attach = on_attach,
+  flags = lsp_flags,
+}
 
+require("mason").setup()

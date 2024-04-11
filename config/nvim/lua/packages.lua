@@ -1,47 +1,58 @@
-require('packer').startup(function()
-  use 'wbthomason/packer.nvim'
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icons
-    },
-  }
-  use 'kdheepak/lazygit.nvim'
-  use 'EdenEast/nightfox.nvim'
-  use 'onsails/lspkind.nvim'
+require("lazy").setup({
+	"folke/which-key.nvim",
+	{ "folke/neoconf.nvim", cmd = "Neoconf" },
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = { { "nvim-lua/plenary.nvim" } },
+	},
+	{
+		"kyazdani42/nvim-tree.lua",
+		dependencies = {
+			"kyazdani42/nvim-web-devicons", -- optional, for file icons
+		},
+	},
 
-  use 'williamboman/mason.nvim'
+	"folke/neodev.nvim",
+	"neovim/nvim-lspconfig",
+	"williamboman/nvim-lsp-installer",
+	"kdheepak/lazygit.nvim",
+	"EdenEast/nightfox.nvim",
+	"onsails/lspkind.nvim",
 
-  -- comment
-  use 'numToStr/Comment.nvim'
+	"williamboman/mason.nvim",
 
-  -- Autocompletion
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-nvim-lua'
-  use 'hrsh7th/nvim-cmp'
-  use 'L3MON4D3/LuaSnip'
-  use 'saadparwaiz1/cmp_luasnip'
-  -- Autocompletion end
+	-- comment
+	"numToStr/Comment.nvim",
 
-  -- Formatter
-  -- use('nvimtools/none-ls.nvim')
-  -- use('MunifTanjim/prettier.nvim')
-  use('mfussenegger/nvim-lint')
-  use('stevearc/conform.nvim')
-  -- Formatter end
+	-- Autocompletion
+	"hrsh7th/cmp-buffer",
+	"hrsh7th/cmp-path",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-nvim-lua",
+	"hrsh7th/nvim-cmp",
+	"L3MON4D3/LuaSnip",
+	"saadparwaiz1/cmp_luasnip",
+	-- Autocompletion end
 
-  -- code folding
-  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
-  -- end
-end)
+	-- Formatter
+	"mfussenegger/nvim-lint",
+	"stevearc/conform.nvim",
+	-- Formatter end
+	-- code folding
+	{ "kevinhwang91/nvim-ufo", dependencies = { "kevinhwang91/promise-async" } },
+	-- end
+})

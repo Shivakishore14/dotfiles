@@ -1,3 +1,3 @@
-require('packages')
 require('config')
+require('packages')
 require('keybinding')

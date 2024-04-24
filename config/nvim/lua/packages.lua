@@ -14,6 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	"folke/which-key.nvim",
 	{ "folke/neoconf.nvim", cmd = "Neoconf" },
+        {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = { { "nvim-lua/plenary.nvim" } },
@@ -36,6 +37,7 @@ require("lazy").setup({
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
+                        "onsails/lspkind.nvim",
 
 			-- Useful status updates for LSP.
 			-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`

@@ -59,4 +59,4 @@ require("config.comment")
 require("config.formatter")
 require("config.code-folding")
 
-vim.cmd("colorscheme nightfox")
+-- vim.cmd("colorscheme nightfox")

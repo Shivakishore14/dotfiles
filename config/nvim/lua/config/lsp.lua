@@ -6,7 +6,6 @@ local lsp_flags = {
 
 local lspkind = require("lspkind")
 local cmp = require("cmp")
-require("nvim-lsp-installer").setup({})
 
 cmp.setup({
 	mapping = cmp.mapping.preset.insert({

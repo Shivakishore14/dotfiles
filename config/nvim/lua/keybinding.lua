@@ -8,10 +8,10 @@ keymap("n", "<Esc>", "<cmd>nohlsearch<CR>", keymap_opts)
 keymap("n", "<c-s>", ":w<CR>", keymap_opts)
 keymap("i", "<c-s>", "<Esc>:w<CR>a", keymap_opts)
 
-keymap("n", "<c-j>", "<c-w>j", keymap_opts)
-keymap("n", "<c-h>", "<c-w>h", keymap_opts)
-keymap("n", "<c-k>", "<c-w>k", keymap_opts)
-keymap("n", "<c-l>", "<c-w>l", keymap_opts)
+-- keymap("n", "<c-j>", "<c-w>j", keymap_opts)
+-- keymap("n", "<c-h>", "<c-w>h", keymap_opts)
+-- keymap("n", "<c-k>", "<c-w>k", keymap_opts)
+-- keymap("n", "<c-l>", "<c-w>l", keymap_opts)
 keymap("n", "<c-n>", ":NvimTreeToggle<CR>", keymap_opts)
 
 -- Telescope keymaps

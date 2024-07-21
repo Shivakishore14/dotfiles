@@ -10,7 +10,7 @@ vim.opt.signcolumn = "number"
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.mouse = "a"
-vim.opt.clipboard = "unnamed"
+vim.opt.clipboard = "unnamedplus"
 
 vim.g.have_nerd_font = true
 -- vim.opt.showmode = false
@@ -60,3 +60,5 @@ require("config.formatter")
 require("config.code-folding")
 
 -- vim.cmd("colorscheme nightfox")
+-- vim.cmd("hi! Normal ctermbg=NONE guibg=NONE")
+-- vim.cmd("hi! NonText ctermbg=NONE guibg=NONE")

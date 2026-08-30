@@ -32,10 +32,13 @@ cd ~/github/dotfiles
 ./bootstrap
 ```
 
-The bootstrap detects macOS, Arch, and WSL. Chezmoi asks for the machine role
+The bootstrap is intended for initial setup. It detects macOS, Arch, and WSL.
+Chezmoi asks for the machine role
 (`personal` or `work`) and separate GitHub and work Git identities on first
 initialization. Identity values are stored only in the local Chezmoi
-configuration and generated Git files.
+configuration and generated Git files. Re-running the bootstrap after
+initialization performs an incremental `chezmoi apply` without prompting for
+the identities again.
 
 Restart the shell after installation:
 
@@ -49,6 +52,12 @@ Pull and apply dotfile updates:
 
 ```sh
 chezmoi update
+```
+
+Apply changes already present in the local dotfiles checkout:
+
+```sh
+chezmoi apply
 ```
 
 Install versions declared in the mise configuration:

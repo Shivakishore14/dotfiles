@@ -1,5 +1,4 @@
 [tools]
-azure-cli = "latest"
 fd = "latest"
 fzf = "latest"
 github-cli = "latest"

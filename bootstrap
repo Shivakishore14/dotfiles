@@ -64,4 +64,10 @@ case "$(uname -s)" in
 esac
 
 export PATH="${HOME}/.local/bin:${PATH}"
-chezmoi --source "${repo_root}" init --apply
+chezmoi_config="${XDG_CONFIG_HOME:-${HOME}/.config}/chezmoi/chezmoi.toml"
+
+if [[ -f "${chezmoi_config}" ]]; then
+  chezmoi --source "${repo_root}" apply
+else
+  chezmoi --source "${repo_root}" init --apply
+fi

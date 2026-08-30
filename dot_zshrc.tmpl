@@ -1,0 +1,56 @@
+typeset -U path PATH
+path=("${HOME}/.local/bin" $path)
+
+export ZSH="${HOME}/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+
+if [[ -r "${ZSH}/oh-my-zsh.sh" ]]; then
+  source "${ZSH}/oh-my-zsh.sh"
+fi
+
+autosuggestions="${HOME}/.local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if [[ -r "${autosuggestions}" ]]; then
+  source "${autosuggestions}"
+fi
+unset autosuggestions
+
+if [[ -d "${HOME}/.config/agency/CurrentVersion" ]] &&
+  [[ ":${PATH}:" != *":${HOME}/.config/agency/CurrentVersion:"* ]]; then
+  path=("${HOME}/.config/agency/CurrentVersion" $path)
+fi
+
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+if command -v herdr >/dev/null 2>&1; then
+  source <(herdr completion zsh)
+fi
+
+{{ if eq .machineType "wsl" -}}
+if [[ -z "${ZSHRC_DID_CD:-}" ]]; then
+  export ZSHRC_DID_CD=1
+  cd "${HOME}"
+fi
+{{ end -}}
+
+export EDITOR="nvim"
+export VISUAL="nvim"
+
+alias vim="nvim"
+alias vi="nvim"
+alias v="nvim"
+
+HISTFILE="${ZDOTDIR:-${HOME}}/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
+setopt append_history
+setopt hist_expire_dups_first
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history

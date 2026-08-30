@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+
+run_as_root() {
+  if [[ ${EUID} -eq 0 ]]; then
+    "$@"
+  else
+    sudo "$@"
+  fi
+}
+
+is_wsl() {
+  [[ -r /proc/sys/kernel/osrelease ]] &&
+    grep -qi microsoft /proc/sys/kernel/osrelease
+}
+
+install_linux_tools() {
+  mkdir -p "${HOME}/.local/bin"
+  local installer
+  installer="$(mktemp)"
+  trap 'rm -f "${installer}"' RETURN
+
+  if ! command -v chezmoi >/dev/null 2>&1; then
+    curl -fsSL https://get.chezmoi.io -o "${installer}"
+    sh "${installer}" -b "${HOME}/.local/bin"
+  fi
+
+  if ! command -v mise >/dev/null 2>&1; then
+    curl -fsSL https://mise.run -o "${installer}"
+    MISE_INSTALL_PATH="${HOME}/.local/bin/mise" sh "${installer}"
+  fi
+}
+
+case "$(uname -s)" in
+  Darwin)
+    if ! command -v brew >/dev/null 2>&1; then
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
+    brew install chezmoi mise
+    ;;
+  Linux)
+    if is_wsl; then
+      run_as_root apt-get update
+      run_as_root apt-get install -y ca-certificates curl git
+    elif [[ -r /etc/arch-release ]]; then
+      run_as_root pacman -Syu --needed --noconfirm ca-certificates curl git
+    else
+      printf 'Unsupported Linux distribution. Expected Arch Linux or Ubuntu on WSL.\n' >&2
+      exit 1
+    fi
+    install_linux_tools
+    ;;
+  *)
+    printf 'Unsupported operating system: %s\n' "$(uname -s)" >&2
+    exit 1
+    ;;
+esac
+
+export PATH="${HOME}/.local/bin:${PATH}"
+chezmoi --source "${repo_root}" init --apply

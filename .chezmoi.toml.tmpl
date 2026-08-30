@@ -1,0 +1,26 @@
+{{- $machineType := "arch" -}}
+{{- $kernelRelease := output "uname" "-r" | lower -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $machineType = "macos" -}}
+{{- else if contains "microsoft" $kernelRelease -}}
+{{-   $machineType = "wsl" -}}
+{{- end -}}
+{{- $machineRole := promptStringOnce . "machineRole" "Machine role (personal/work)" -}}
+{{- $githubUsername := promptStringOnce . "githubUsername" "GitHub commit username" -}}
+{{- $githubEmail := promptStringOnce . "githubEmail" "GitHub commit email" -}}
+{{- $workUsername := promptStringOnce . "workUsername" "Work commit username" -}}
+{{- $workEmail := promptStringOnce . "workEmail" "Work commit email" -}}
+
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+[data]
+    machineType = {{ $machineType | quote }}
+    machineRole = {{ $machineRole | quote }}
+
+[data.git.github]
+    username = {{ $githubUsername | quote }}
+    email = {{ $githubEmail | quote }}
+
+[data.git.work]
+    username = {{ $workUsername | quote }}
+    email = {{ $workEmail | quote }}

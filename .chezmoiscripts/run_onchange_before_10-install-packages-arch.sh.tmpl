@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .machineType "arch" -}}
+if [[ ${EUID} -eq 0 ]]; then
+  pacman -Syu --needed --noconfirm \
+    base-devel \
+    ca-certificates \
+    curl \
+    git \
+    openssh \
+    unzip \
+    zsh
+else
+  sudo pacman -Syu --needed --noconfirm \
+    base-devel \
+    ca-certificates \
+    curl \
+    git \
+    openssh \
+    unzip \
+    zsh
+fi
+{{ else -}}
+exit 0
+{{ end -}}

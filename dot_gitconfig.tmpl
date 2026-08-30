@@ -1,0 +1,17 @@
+[user]
+    useConfigOnly = true
+
+[core]
+    editor = nvim
+
+[init]
+    defaultBranch = main
+
+[includeIf "gitdir:~/github/"]
+    path = ~/.config/git/github
+
+[includeIf "gitdir:~/workplace/"]
+    path = ~/.config/git/work
+
+[include]
+    path = ~/.config/git/local

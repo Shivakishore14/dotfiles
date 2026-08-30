@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .machineType "wsl" -}}
+if [[ ${EUID} -eq 0 ]]; then
+  apt-get update
+  apt-get install -y \
+    build-essential \
+    ca-certificates \
+    curl \
+    git \
+    openssh-client \
+    unzip \
+    zsh
+else
+  sudo apt-get update
+  sudo apt-get install -y \
+    build-essential \
+    ca-certificates \
+    curl \
+    git \
+    openssh-client \
+    unzip \
+    zsh
+fi
+{{ else -}}
+exit 0
+{{ end -}}

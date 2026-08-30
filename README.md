@@ -27,7 +27,7 @@ Clone the repository into the standard GitHub workspace and run the bootstrap:
 
 ```sh
 mkdir -p ~/github
-git clone https://github.com/Shivakishore14/dotfiles.git ~/github/dotfiles
+git clone git@github.com:Shivakishore14/dotfiles.git ~/github/dotfiles
 cd ~/github/dotfiles
 ./bootstrap
 ```

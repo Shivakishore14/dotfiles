@@ -1,0 +1,34 @@
+# Home directory conventions
+
+My home directory (`~`) contains:
+- `~/github` — for cloning GitHub repos
+- `~/workplace` — for cloning non-GitHub repos (Azure DevOps/ADO, GitLab, Bitbucket, etc.)
+- `~/worktrees` — for git worktrees (I use worktrees a lot)
+
+When asked to clone a repo, choose the destination based on the source:
+- GitHub repo → clone into `~/github`
+- Any other source (ADO, etc.) → clone into `~/workplace`
+
+When asked to create a git worktree, place it under `~/worktrees`.
+
+{{ if eq .machineRole "work" -}}
+# Global memory
+
+When I refer to "global memory", use the private work folder at:
+
+```text
+<OneDrive Documents>/setup/files/agents/global-memory
+```
+
+Resolve `<OneDrive Documents>` from the operating system rather than
+hard-coding a username:
+
+- WSL: read the Windows `OneDriveCommercial` environment variable and convert
+  it with `wslpath`, then append `Documents`.
+- macOS: use `~/Library/CloudStorage/OneDrive-*/Documents`.
+- Linux: use the locally synced `~/OneDrive*/Documents` directory.
+
+Treat global memory as private work content. Do not copy its contents into
+public repositories or send it to third-party services. When asked to read,
+search, create, or update global memory, operate in this folder.
+{{ end -}}

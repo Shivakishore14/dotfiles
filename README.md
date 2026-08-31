@@ -99,6 +99,31 @@ Git commits use directory-scoped identities:
 The repository contains only Chezmoi template variables. Prompted identity
 values are not committed to this repository.
 
+## Work-only tools
+
+Sensitive work files live in `OneDrive/Documents/setup`, outside this public
+repository. The expected layout is:
+
+```text
+setup/
+├── config/
+├── files/
+└── scripts/
+```
+
+On machines initialized with the `work` role, each direct file in `scripts/`
+is installed in `~/.local/bin` during `chezmoi apply`. A `.sh` suffix is
+removed from the command name, so `scripts/activate-owner.sh` installs as
+`activate-owner`. Removed scripts are also removed from `~/.local/bin`, while
+unrelated existing commands are never overwritten.
+
+The installer discovers the commercial OneDrive Documents folder on WSL and
+standard OneDrive locations on macOS and Linux. Set `WORK_SETUP_DIR` to the
+full `setup` path when a machine uses a non-standard location.
+
+WSL uses Azure CLI from the Windows host. Other work profiles install Azure CLI
+through mise.
+
 ## Neovim
 
 The Neovim configuration follows the upstream LazyVim starter layout. Plugin

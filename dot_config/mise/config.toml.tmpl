@@ -1,9 +1,13 @@
 [tools]
+{{ if and (eq .machineRole "work") (ne .machineType "wsl") }}
+azure-cli = "latest"
+{{ end }}
 fd = "latest"
 fzf = "latest"
 github-cli = "latest"
 go = "latest"
 herdr = "latest"
+jq = "latest"
 lazygit = "latest"
 lua-language-server = "latest"
 neovim = "latest"

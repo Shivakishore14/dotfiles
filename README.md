@@ -17,6 +17,7 @@ and macOS applications.
 - Neovim with LazyVim
 - Herdr as the primary terminal workspace and AI orchestration tool
 - tmux as an on-demand terminal multiplexer
+- Yazi terminal file manager
 - GitHub CLI (`gh`)
 - Git defaults with per-machine identity
 - Language runtimes, language servers, formatters, and common CLI tools via mise

@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+{{ if eq .machineRole "work" -}}
+die() {
+  printf 'private work scripts: %s\n' "$*" >&2
+  exit 1
+}
+
+find_onedrive_documents() {
+  if [[ -n "${WORK_SETUP_DIR:-}" ]]; then
+    printf '%s\n' "${WORK_SETUP_DIR%/setup}"
+    return
+  fi
+
+  if [[ -r /proc/sys/kernel/osrelease ]] &&
+    grep -qi microsoft /proc/sys/kernel/osrelease; then
+    command -v cmd.exe >/dev/null 2>&1 || die "cmd.exe is unavailable"
+    command -v wslpath >/dev/null 2>&1 || die "wslpath is unavailable"
+
+    local windows_onedrive
+    windows_onedrive="$(
+      cmd.exe /d /c 'echo %OneDriveCommercial%' 2>/dev/null |
+        tr -d '\r\n'
+    )"
+    if [[ -z "${windows_onedrive}" || "${windows_onedrive}" == "%OneDriveCommercial%" ]]; then
+      windows_onedrive="$(
+        cmd.exe /d /c 'echo %OneDrive%' 2>/dev/null |
+          tr -d '\r\n'
+      )"
+    fi
+    [[ -n "${windows_onedrive}" && "${windows_onedrive}" != "%OneDrive%" ]] ||
+      die "Windows OneDrive path was not found"
+
+    printf '%s/Documents\n' "$(wslpath -u "${windows_onedrive}")"
+    return
+  fi
+
+  shopt -s nullglob
+  local candidates=(
+    "${HOME}"/Library/CloudStorage/OneDrive-*/Documents
+    "${HOME}"/OneDrive*/Documents
+  )
+  local matches=()
+  local candidate
+  for candidate in "${candidates[@]}"; do
+    [[ -d "${candidate}/setup" ]] && matches+=("${candidate}")
+  done
+
+  case "${#matches[@]}" in
+    0)
+      die "OneDrive Documents/setup was not found; set WORK_SETUP_DIR"
+      ;;
+    1)
+      printf '%s\n' "${matches[0]}"
+      ;;
+    *)
+      die "multiple OneDrive setup folders were found; set WORK_SETUP_DIR"
+      ;;
+  esac
+}
+
+documents_dir="$(find_onedrive_documents)"
+setup_dir="${WORK_SETUP_DIR:-${documents_dir}/setup}"
+scripts_dir="${setup_dir}/scripts"
+[[ -d "${scripts_dir}" ]] || die "scripts directory not found at ${scripts_dir}"
+
+bin_dir="${HOME}/.local/bin"
+state_dir="${XDG_STATE_HOME:-${HOME}/.local/state}/dotfiles"
+manifest="${state_dir}/work-scripts.manifest"
+mkdir -p "${bin_dir}" "${state_dir}"
+
+declare -A previously_managed=()
+if [[ -f "${manifest}" ]]; then
+  while IFS= read -r name; do
+    [[ -n "${name}" ]] && previously_managed["${name}"]=1
+  done < "${manifest}"
+fi
+
+new_manifest="$(mktemp "${state_dir}/work-scripts.XXXXXX")"
+trap 'rm -f "${new_manifest}"' EXIT
+
+shopt -s nullglob
+for source_path in "${scripts_dir}"/*; do
+  [[ -f "${source_path}" ]] || continue
+
+  source_name="$(basename "${source_path}")"
+  command_name="${source_name%.sh}"
+  target_path="${bin_dir}/${command_name}"
+
+  if [[ -e "${target_path}" && -z "${previously_managed[${command_name}]:-}" ]]; then
+    if [[ "${command_name}" != "activate-owner" ]] ||
+      ! grep -q 'ACTIVATE_OWNER_SCRIPT' "${target_path}" 2>/dev/null; then
+      die "${target_path} already exists and is not managed by this installer"
+    fi
+  fi
+
+  install -m 0755 "${source_path}" "${target_path}"
+  printf '%s\n' "${command_name}" >> "${new_manifest}"
+done
+
+while IFS= read -r old_name; do
+  [[ -n "${old_name}" ]] || continue
+  if ! grep -Fxq "${old_name}" "${new_manifest}"; then
+    rm -f "${bin_dir:?}/${old_name}"
+  fi
+done < <(printf '%s\n' "${!previously_managed[@]}")
+
+sort -u -o "${new_manifest}" "${new_manifest}"
+mv "${new_manifest}" "${manifest}"
+trap - EXIT
+{{ else -}}
+exit 0
+{{ end -}}

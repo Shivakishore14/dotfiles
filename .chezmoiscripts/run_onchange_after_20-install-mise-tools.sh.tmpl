@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# mise config checksum: {{ include "dot_config/mise/config.toml" | sha256sum }}
+# mise config checksum: {{ include "dot_config/mise/config.toml.tmpl" | sha256sum }}
 set -euo pipefail
 
 export PATH="${HOME}/.local/bin:${PATH}"
